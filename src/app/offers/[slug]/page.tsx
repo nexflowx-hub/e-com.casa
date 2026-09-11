@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { OfferPageV3 } from '@/components/offers/offer-page-v3';
+import { OfferPageZAI } from '@/components/offers/offer-page-zai';
 import { getOfferSlugs } from '@/lib/offers/registry';
 import { resolveOffer } from '@/lib/offers/resolver';
 import { resolveOfferMarket } from '@/lib/offers/geo';
@@ -61,7 +61,7 @@ export default async function OfferRoute({ params }: { params: Promise<{ slug: s
   const seo = offer.translations?.[market.language]?.seo ?? offer.seo;
   const image = product.image?.startsWith('http') ? product.image : `${COMPANY.domain}${product.image}`;
 
-  // Keep campaign social proof separate from factual SEO markup. Ratings/reviews
+  // Campaign social proof stays separate from factual SEO markup. Ratings/reviews
   // are only added to schema when a verified customer-review source is wired in.
   const structuredData = {
     '@context': 'https://schema.org',
@@ -83,7 +83,7 @@ export default async function OfferRoute({ params }: { params: Promise<{ slug: s
 
   return (
     <>
-      <OfferPageV3 offer={offer} product={product} market={market} />
+      <OfferPageZAI offer={offer} product={product} market={market} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
